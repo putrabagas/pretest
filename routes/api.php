@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,5 +34,8 @@ Route::middleware('auth:api')->group(function(){
     
     Route::apiResource('/products', ProductController::class)->except([
         'index', 'show', 
+    ]);
+    Route::apiResource('/carts', CartController::class)->except([
+        'show',
     ]);
 });
