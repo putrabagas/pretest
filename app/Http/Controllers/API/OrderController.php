@@ -75,7 +75,6 @@ class OrderController extends Controller
 
     public function getOrders(Request $request)
     {
-        // dd($request->user()->isAdmin);
         if ($request->user()->isAdmin === 1) {
             $orders = Order::with('orders','orders.product')
                         ->orderBy('updated_at', 'desc')
