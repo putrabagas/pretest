@@ -72,18 +72,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request->name);
         $product = Product::find($id);
         if ($product == null) {
-            return response([
-                'code' => 404,
-                'errors' => [
-                    'message' => "Product not found"
-                ]
-            ],404);
+            $message = ['message' => "Product not found"];
+            return (new APIResource(false, 404, $message))->response()->setStatusCode(404);
         }
-        $update = $request->post();
-        dd($update);
+        
+        $product->fill($request->all())->save();
+        return (new APIResource(true, 200, $product));
     }
 
     /**

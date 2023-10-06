@@ -33,7 +33,5 @@ Route::middleware('auth:api')->group(function(){
     
     Route::apiResource('/products', ProductController::class)->except([
         'index', 'show', 
-        // 'update'
     ]);
-    // Route::put('/products/{id}', [ProductController::class, 'update']);
 });
