@@ -18,8 +18,16 @@ use App\Http\Controllers\API\CartController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+Route::fallback(function () {
+    return response()->json([
+        'code' => 401,
+        'errors' => [
+            'message' => 'Please login before access this menu'
+            ]
+    ], 401);
 });
 
 Route::post('/register', [AuthController::class, 'register']);
