@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,4 +47,9 @@ Route::middleware('auth:api')->group(function(){
     Route::apiResource('/carts', CartController::class)->except([
         'show',
     ]);
+
+    Route::get('/checkout', [OrderController::class, 'checkout']);
+    Route::post('/checkout', [OrderController::class, 'createOrder']);
+    Route::get('/orders', [OrderController::class, 'getOrders']);
+    Route::post('/orders/payment/{id}', [OrderController::class, 'payment']);
 });
