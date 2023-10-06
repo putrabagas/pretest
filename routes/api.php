@@ -37,6 +37,7 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::apiResource('/products', ProductController::class)->only([
     'index', 'show'
 ]);
+Route::post('/products/search', [ProductController::class, 'search']);
 
 Route::middleware('auth:api')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout']);

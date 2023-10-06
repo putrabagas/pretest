@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product = Product::orderByDesc("created_at")->get();
+        $product = Product::orderByDesc("updated_at")->get();
         if ($product->isEmpty()) {
             $message = ['message' => "Products not found"];
             return (new APIResource(false, 404, $message))->response()->setStatusCode(404);
@@ -98,5 +98,20 @@ class ProductController extends Controller
         $product->delete();
         $message = ['message' => "Success delete product"];
         return (new APIResource(true, 200, $message))->response()->setStatusCode(200);
+    }
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        
+        $products = Product::where('name', 'like', '%' . $searchTerm . '%')
+                        ->orderByDesc("updated_at")
+                        ->get();
+        if ($products->isEmpty()) {
+            $message = ['message' => "Products not found"];
+            return (new APIResource(false, 404, $message))->response()->setStatusCode(404);
+        }
+
+        return (new APIResource(true, 200, $products))->response()->setStatusCode(200);
     }
 }
