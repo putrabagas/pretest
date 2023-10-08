@@ -42,6 +42,7 @@ class AuthController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
+                'is_admin' => $user->isAdmin,
                 'token' => $token
             ]
         ], 201);
@@ -71,6 +72,7 @@ class AuthController extends Controller
                     'id' => Auth::user()->id,
                     'name' => Auth::user()->name,
                     'email' => Auth::user()->email,
+                    'is_admin' => Auth::user()->isAdmin,
                     'token' => $token
                 ]
             ], 200);

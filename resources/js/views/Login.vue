@@ -38,8 +38,9 @@
             const login = async () => {                
                 await axios.post('/api/login', form).then(res=>{
                     if(res.data.status){
-                        // localStorage.setItem('token', res.data.data.token);
                         store.dispatch('setToken', res.data.data.token);
+                        store.dispatch('setAdmin', res.data.data.is_admin);
+                        // localStorage.setItem('is_admin', res.data.data.is_admin);
                         router.push({name: 'Product'});
                     }
                 }).catch(err=>{

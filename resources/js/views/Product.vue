@@ -1,6 +1,12 @@
 <template>
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
+            <div class="my-2 d-flex justify-content-end" id="inibutton">
+                <button v-if="isAdmin && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
+                    <router-link :to="{ name: 'AddProduct' }" class="text-white text-decoration-none">Add Product</router-link>
+                </button>
+            </div>
+            <!-- <div v-if="error" class="alert alert-danger">{{ error }}</div> -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div v-for="product in products" :key="product.id" class="col">
                     <div class="card shadow-sm">
@@ -12,12 +18,16 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-md btn-outline-success">
-                                        + Cart
-                                    </button>
-                                    <button type="button" class="btn btn-md btn-outline-success">
-                                        Detail
-                                    </button>
+                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-if="isAdmin && $store.getters.getToken != 0">
+                                        <button type="button" class="btn btn-outline-success me-2">Edit</button>
+                                    </router-link>
+                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-else>
+                                        <button type="button" class="btn btn-outline-success me-2">+ Cart</button>
+                                    </router-link>
+                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
+                                        <button type="button" class="btn btn-outline-success me-2">Detail</button>
+                                    </router-link>
+
                                 </div>
                             </div>
                         </div>
@@ -28,14 +38,22 @@
     </div>
 </template>
 <script>
+import { mapState, mapActions } from 'vuex';
 export default {
-  computed: {
-    products() {
-      return this.$store.getters.getProducts;
-    }
-  },
-  created() {
-    this.$store.dispatch('fetchProducts');
-  }
+    computed: {
+        products() {
+        return this.$store.getters.getProducts;
+        },
+        ...mapState(['isAdmin']),
+    },
+    created() {
+        this.$store.dispatch('fetchProducts');
+    },
+    methods: {
+        ...mapActions(['checkIsAdmin']),
+    },
+    mounted() {
+        this.checkIsAdmin();
+    },
 };
 </script>

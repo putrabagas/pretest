@@ -4,7 +4,11 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Logout from "./views/Logout.vue";
 import Home from "./views/Home.vue";
+
 import Product from "./views/Product.vue";
+import AddProduct from "./views/AddProduct.vue";
+import DetailProduct from "./views/DetailProduct.vue";
+
 import Transaction from "./views/Transaction.vue";
 import Cart from "./views/Cart.vue";
 
@@ -46,6 +50,19 @@ const routes = [
         // meta:{
         //     requiresAuth: true
         // }
+    },
+    {
+        path: "/add-product",
+        name: "AddProduct",
+        component: AddProduct,
+        meta:{
+            requiresAuth: true
+        }
+    },
+    {
+        path: "/detail-product/:id",
+        name: "DetailProduct",
+        component: DetailProduct,
     },
     {
         path: "/transactions",

@@ -20,6 +20,7 @@
 
             await axios.post('/api/logout', null, { headers });
             store.dispatch('removeToken');
+            store.dispatch('removeAdmin');
             // localStorage.removeItem('token');
             // localStorage.removeItem('user'); 
             this.$router.push({ name: 'Login' });
