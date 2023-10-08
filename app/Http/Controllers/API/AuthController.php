@@ -22,6 +22,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response([
+                'status' => 'false',
                 'code' => 400,
                 'errors' => $validator->errors()
             ], 400);
@@ -35,6 +36,7 @@ class AuthController extends Controller
         $token = $user->createToken('AuthToken')->accessToken;
 
         return response([
+            'status' => 'true',
             'code' => 201,
             'data' => [
                 'id' => $user->id,
@@ -54,6 +56,7 @@ class AuthController extends Controller
 
         if ($validator->fails()) {
             return response([
+                'status' => 'false',
                 'code' => 400,
                 'errors' => $validator->errors()
             ], 400);
@@ -62,6 +65,7 @@ class AuthController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $token = Auth::user()->createToken('AuthToken')->accessToken;
             return response([
+                'status' => 'true',
                 'code' => 200,
                 'data' => [
                     'id' => Auth::user()->id,
@@ -73,6 +77,7 @@ class AuthController extends Controller
         } 
         else{ 
             return response([
+                'status' => 'false',
                 'code' => 401,
                 'errors' => [
                     'message' => 'Incorrect email or password'
@@ -88,6 +93,7 @@ class AuthController extends Controller
         });
 
         return response([
+            'status' => 'true',
             'code' => 200,
             'data' => [
                 'message' => 'Logged out successfully'
