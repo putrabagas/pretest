@@ -7,10 +7,14 @@
 
         <ul class="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
-                <router-link :to="{name: 'Product'}" class="nav-link px-2 text-white">Product</router-link>
+                <router-link :to="{name: 'Product'}" class="nav-link px-2 text-white">
+                    Product
+                </router-link>
             </li>
             <li>
-                <router-link :to="{name: 'Transaction'}" class="nav-link px-2 text-white">Transaction</router-link>
+                <router-link :to="{name: 'Transaction'}" class="nav-link px-2 text-white">
+                    Transaction
+                </router-link>
             </li>
         </ul>
 
@@ -19,16 +23,16 @@
         </form>
 
         <div class="text-end">
-            <router-link :to="{name: 'Cart'}">
+            <router-link :to="{name: 'Cart'}" v-if="$store.getters.getToken != 0">
                 <button type="button" class="btn btn-outline-danger me-2"><i class="bi bi-cart2"></i></button>
             </router-link>
-            <router-link :to="{name: 'Login'}">
+            <router-link :to="{name: 'Login'}" v-if="$store.getters.getToken == 0" >
                 <button type="button" class="btn btn-outline-light me-2">Login</button>
             </router-link>
-            <router-link :to="{name: 'Register'}">
+            <router-link :to="{name: 'Register'}" v-if="$store.getters.getToken == 0">
                 <button type="button" class="btn btn-warning">Register</button>
             </router-link>
-            <router-link :to="{name: 'Logout'}">
+            <router-link :to="{name: 'Logout'}" v-if="$store.getters.getToken != 0">
                 <button type="button" class="btn btn-warning">Logout</button>
             </router-link>
         </div>

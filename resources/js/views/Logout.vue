@@ -4,9 +4,12 @@
     </div>
 </template>
 <script>
+    import { useStore } from 'vuex';
+    import store from '../store';
     export default {
     created() {
         this.logout();
+        const store = useStore();
     },
     methods: {
         async logout() {
@@ -16,7 +19,8 @@
             };
 
             await axios.post('/api/logout', null, { headers });
-            localStorage.removeItem('token');
+            store.dispatch('removeToken');
+            // localStorage.removeItem('token');
             // localStorage.removeItem('user'); 
             this.$router.push({ name: 'Login' });
         } catch (error) {

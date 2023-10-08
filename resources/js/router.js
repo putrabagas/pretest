@@ -6,7 +6,6 @@ import Logout from "./views/Logout.vue";
 import Product from "./views/Product.vue";
 import Transaction from "./views/Transaction.vue";
 import Cart from "./views/Cart.vue";
-import { before } from "lodash";
 
 const routes = [
     {
