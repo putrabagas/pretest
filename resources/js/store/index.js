@@ -37,8 +37,8 @@ const store = createStore({
         },
         checkIsAdmin({ commit }) {
             const isAdmin = localStorage.getItem('is_admin');
-            if (isAdmin && isAdmin === '0') {
-                commit('setIsAdmin', true);
+            if (isAdmin && isAdmin === '1') {
+                commit('UPDATE_ISADMIN', true);
             }
         },
         removeAdmin(context){

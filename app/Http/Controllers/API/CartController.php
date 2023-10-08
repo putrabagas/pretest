@@ -40,13 +40,26 @@ class CartController extends Controller
             'product_id' => 'required',
             'quantity' => 'required|integer|min:1',
         ]);
+    
         if ($validator->fails()) {
             return (new APIResource(false, 400, $validator->errors()))->response()->setStatusCode(400);
         }
+    
         $input = $request->all();
         $input['user_id'] = $request->user()->id;
-        $cart = Cart::create($input);
-        return (new APIResource(true, 200, $cart))->response()->setStatusCode(200);
+        
+        $existingCart = Cart::where('user_id', $input['user_id'])
+                            ->where('product_id', $input['product_id'])
+                            ->first();
+    
+        if ($existingCart) {
+            $existingCart->quantity += $input['quantity'];
+            $existingCart->save();
+            return (new APIResource(true, 200, $existingCart))->response()->setStatusCode(200);
+        } else {
+            $cart = Cart::create($input);
+            return (new APIResource(true, 200, $cart))->response()->setStatusCode(200);
+        }
     }
 
     /**
@@ -59,7 +72,7 @@ class CartController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(),[
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer',
         ]);
         if ($validator->fails()) {
             return (new APIResource(false, 400, $validator->errors()))->response()->setStatusCode(400);
@@ -70,7 +83,16 @@ class CartController extends Controller
             $message = ['message' => "Cart not found"];
             return (new APIResource(false, 404, $message))->response()->setStatusCode(404);
         }
-        $cart->fill($request->all())->save();
+
+        $newQuantity = $request->input('quantity');
+        if ($newQuantity < 1 && $cart->quantity == 1) {
+            $message = ['message' => "Quantity can't be reduced below 1"];
+            return (new APIResource(false, 400, $message))->response()->setStatusCode(400);
+        }
+
+        $cart->quantity += $newQuantity;
+        $cart->save();
+
         return (new APIResource(true, 200, $cart))->response()->setStatusCode(200);
     }
 

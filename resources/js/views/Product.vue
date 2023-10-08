@@ -21,9 +21,15 @@
                                     <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-if="isAdmin && $store.getters.getToken != 0">
                                         <button type="button" class="btn btn-outline-success me-2">Edit</button>
                                     </router-link>
-                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-else>
-                                        <button type="button" class="btn btn-outline-success me-2">+ Cart</button>
-                                    </router-link>
+                                    <!-- <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-else>
+                                        <button type="button" class="btn btn-outline-success me-2" id="addcart">+ Cart</button>
+                                    </router-link> -->
+                                    <form @submit.prevent="addToCart(product.id)" v-else class="me-2">
+                                        <div class="input-group">
+                                            <input v-model="quantity" type="number" class="form-control" min="1" required placeholder="Quantity">
+                                            <button type="submit" class="btn btn-outline-success">+ Cart</button>
+                                        </div>
+                                    </form>
                                     <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
                                         <button type="button" class="btn btn-outline-success me-2">Detail</button>
                                     </router-link>
@@ -40,6 +46,11 @@
 <script>
 import { mapState, mapActions } from 'vuex';
 export default {
+    data() {
+        return {
+            quantity: 1,
+        };
+    },
     computed: {
         products() {
         return this.$store.getters.getProducts;
@@ -51,6 +62,27 @@ export default {
     },
     methods: {
         ...mapActions(['checkIsAdmin']),
+        
+        addToCart(productId) {
+            const headers = {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            };
+            const data = {
+                product_id: productId,
+                quantity: this.quantity,
+            };
+
+            axios.post('/api/carts', data, { headers })
+                .then(response => {
+                    if (response.data.status && response.data.data) {
+                        const addedProduct = response.data.data;
+                        window.alert(`Added ${addedProduct.quantity} to cart!`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding product to cart:', error);
+                });
+        },
     },
     mounted() {
         this.checkIsAdmin();
