@@ -28,11 +28,13 @@ class APIResource extends JsonResource
         if ($this->status) {
             return [
                 'code' => $this->code,
+                'status' => $this->status,
                 'data' => $this->resource
             ];
         }
         return [
             'code' => $this->code,
+            'status' => $this->status,
             'errors' => $this->resource
         ];
     }

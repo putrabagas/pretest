@@ -7,12 +7,17 @@
 
         <ul class="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             <li>
+                <router-link :to="{name: 'Home'}" class="nav-link px-2 text-white">
+                    Home
+                </router-link>
+            </li>
+            <li>
                 <router-link :to="{name: 'Product'}" class="nav-link px-2 text-white">
                     Product
                 </router-link>
             </li>
             <li>
-                <router-link :to="{name: 'Transaction'}" class="nav-link px-2 text-white">
+                <router-link :to="{name: 'Transaction'}" v-if="$store.getters.getToken != 0" class="nav-link px-2 text-white" >
                     Transaction
                 </router-link>
             </li>
@@ -30,10 +35,10 @@
                 <button type="button" class="btn btn-outline-light me-2">Login</button>
             </router-link>
             <router-link :to="{name: 'Register'}" v-if="$store.getters.getToken == 0">
-                <button type="button" class="btn btn-warning">Register</button>
+                <button type="button" class="btn btn-danger">Register</button>
             </router-link>
             <router-link :to="{name: 'Logout'}" v-if="$store.getters.getToken != 0">
-                <button type="button" class="btn btn-warning">Logout</button>
+                <button type="button" class="btn btn-danger">Logout</button>
             </router-link>
         </div>
       </div>
