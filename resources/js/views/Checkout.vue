@@ -1,14 +1,14 @@
 <template>
     <div class="album py-5 px-3 bg-body-tertiary">
-      <h2 class="mb-3">Checkout</h2>
+      <h2 class="mb-3">Order Preview</h2>
         <div v-if="cart.length === 0">
-            <p>No need to checkout, go to the product page to add a product</p>
+            <p>No product, go to the product page to add a product</p>
             <router-link :to="{name: 'Product'}">
                 <button type="button" class="btn btn-success">Go to Product</button>
             </router-link>
         </div>  
         <div v-else-if="checkoutSuccess">
-            <p>Your checkout is successful, please go to the transaction page to confirm your payment</p>
+            <p>Your order is successful, please go to the transaction page to confirm your payment</p>
             <router-link :to="{name: 'Transaction'}">
                 <button type="button" class="btn btn-success">Go to Transaction</button>
             </router-link>
@@ -23,14 +23,14 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ item.product.name }}</h5>
                             <p class="card-text">Rp. {{ item.product.price }}</p>
-                            <p class="card-text">Quantity {{ item.quantity }}</p>
+                            <p class="card-text">Quantity: {{ item.quantity }}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="total-price">
+            <div class="total-price text-end">
                 <h4>Total Price: Rp. {{ calculateTotalPrice() }}</h4>
-                <button @click="checkout" class="btn btn-success">Checkout</button>
+                <button @click="checkout" class="btn btn-success">Order</button>
                 <!-- <router-link :to="{name: 'Checkout'}">
                     <button type="button" class="btn btn-success">Checkout</button>
                 </router-link> -->
@@ -95,9 +95,13 @@
                 this.checkoutSuccess = true;
             })
             .catch(error => {
-                console.error('Error during checkout, you will be directed to the cart page:', error);
+                this.showErrorAlert();
             });
-        }
+        },
+        showErrorAlert() {
+            window.alert(`Error during checkout, please try again later. You will be directed to the cart page`);
+            this.$router.push({ name: 'Cart' });
+        },
     },
   };
   </script>
