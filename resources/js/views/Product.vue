@@ -17,21 +17,21 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0">
-                                        <button type="button" class="btn btn-outline-success me-2">Edit</button>
+                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
+                                        <button type="button" class="btn btn-outline-success me-2">Detail</button>
                                     </router-link>
-                                    <!-- <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-else>
-                                        <button type="button" class="btn btn-outline-success me-2" id="addcart">+ Cart</button>
-                                    </router-link> -->
+                                    <div v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0">
+                                        <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
+                                            <button type="button" class="btn btn-outline-success me-2">Edit</button>
+                                        </router-link>
+                                        <button type="button" class="btn btn-outline-danger me-2" id="deleteButton" @click="confirmDelete(product.id)">Delete</button>
+                                    </div>
                                     <form @submit.prevent="addToCart(product.id)" v-else class="me-2">
                                         <div class="input-group">
                                             <input v-model="quantity" type="number" class="form-control" min="1" required placeholder="Quantity">
                                             <button type="submit" class="btn btn-outline-success">+ Cart</button>
                                         </div>
                                     </form>
-                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
-                                        <button type="button" class="btn btn-outline-success me-2">Detail</button>
-                                    </router-link>
 
                                 </div>
                             </div>
@@ -80,6 +80,31 @@ export default {
                 })
                 .catch(error => {
                     console.error('Error adding product to cart:', error);
+                });
+        },
+        confirmDelete(productId) {
+            const confirmed = window.confirm("Are you sure you want to delete this product?");
+            if (confirmed) {
+                this.deleteProduct(productId);
+            }
+        },
+
+        deleteProduct(productId) {
+            console.log('deleteProduct');
+            const headers = {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            };
+
+            axios.delete(`/api/products/${productId}`, { headers })
+                .then(response => {
+                    if (response.data.status && response.data.data) {
+                        window.alert('Product deleted successfully!');
+                        // Refresh product list
+                        this.$store.dispatch('fetchProducts');
+                    }
+                })
+                .catch(error => {
+                    window.alert('Error deleting product:', error);
                 });
         },
     },
