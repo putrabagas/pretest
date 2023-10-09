@@ -29,7 +29,8 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-between mt-3">
-                    <button v-if="items.status == 'pending'" class="btn btn-warning mx-1" @click="openModal(items.id)">Pay</button>
+                    <h6 v-if="items.status == 'pending' && $store.getters.getAdmin == 1" class="pb-2 mb-0 text-danger"></h6>
+                    <button v-else-if="items.status == 'pending'" class="btn btn-warning mx-1" @click="openModal(items.id)">Pay</button>
                     <h6 v-else-if="items.status == 'completed'" class="pb-2 mb-0 text-success">Payment Date : {{ formatDate(items.updated_at) }}</h6>
                     <h6 v-else="items.status == 'cancelled'" class="pb-2 mb-0 text-danger">Cancel Date : {{ formatDate(items.updated_at) }}</h6>
                     <strong class="d-block text-end ">
