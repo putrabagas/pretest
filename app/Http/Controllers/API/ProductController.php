@@ -72,6 +72,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required',
+            'price' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return (new APIResource(false, 400, $validator->errors()))->response()->setStatusCode(400);
+        }
         $product = Product::find($id);
         if ($product == null) {
             $message = ['message' => "Product not found"];

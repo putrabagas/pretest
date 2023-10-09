@@ -8,6 +8,7 @@ import Home from "./views/Home.vue";
 import Product from "./views/Product.vue";
 import AddProduct from "./views/AddProduct.vue";
 import DetailProduct from "./views/DetailProduct.vue";
+import EditProduct from "./views/EditProduct.vue";
 
 import Transaction from "./views/Transaction.vue";
 import Checkout from "./views/Checkout.vue";
@@ -64,6 +65,11 @@ const routes = [
         path: "/detail-product/:id",
         name: "DetailProduct",
         component: DetailProduct,
+    },
+    {
+        path: "/edit-product/:id",
+        name: "EditProduct",
+        component: EditProduct,
     },
     {
         path: "/transactions",

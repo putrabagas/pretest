@@ -22,7 +22,7 @@
                                         <button type="button" class="btn btn-outline-success me-2">Detail</button>
                                     </router-link>
                                     <div v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0">
-                                        <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
+                                        <router-link :to="{ name: 'EditProduct', params: { id: product.id } }">
                                             <button type="button" class="btn btn-outline-success me-2">Edit</button>
                                         </router-link>
                                         <button type="button" class="btn btn-outline-danger me-2" id="deleteButton" @click="confirmDelete(product.id)">Delete</button>
