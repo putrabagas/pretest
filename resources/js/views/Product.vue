@@ -2,7 +2,7 @@
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="my-2 d-flex justify-content-end" id="inibutton">
-                <button v-if="isAdmin && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
+                <button v-if="$store.getters.getAdmin && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
                     <router-link :to="{ name: 'AddProduct' }" class="text-white text-decoration-none">Add Product</router-link>
                 </button>
             </div>

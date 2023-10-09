@@ -2,7 +2,7 @@
     <header class="p-3 text-bg-dark">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         <a href="/" class="d-flex align-items-center mb-2 me-lg-4 mb-lg-0 text-success text-decoration-none">
-          E-commerce
+          E-commerce 
         </a>
 
         <ul class="nav nav-pills col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -28,7 +28,7 @@
         </form>
 
         <div class="text-end">
-            <router-link :to="{name: 'Cart'}" v-if="!isAdmin && $store.getters.getToken != 0">
+            <router-link :to="{name: 'Cart'}" v-if="!$store.getters.getAdmin && $store.getters.getToken != 0">
                 <button type="button" class="btn btn-outline-danger me-2"><i class="bi bi-cart2"></i></button>
             </router-link>
             <router-link :to="{name: 'Login'}" v-if="$store.getters.getToken == 0" >
