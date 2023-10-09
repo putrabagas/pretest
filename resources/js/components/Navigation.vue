@@ -28,7 +28,7 @@
         </form>
 
         <div class="text-end">
-            <router-link :to="{name: 'Cart'}" v-if="!$store.getters.getAdmin && $store.getters.getToken != 0">
+            <router-link :to="{name: 'Cart'}" v-if="$store.getters.getAdmin == 0 && $store.getters.getToken != 0">
                 <button type="button" class="btn btn-outline-danger me-2"><i class="bi bi-cart2"></i></button>
             </router-link>
             <router-link :to="{name: 'Login'}" v-if="$store.getters.getToken == 0" >

@@ -10,6 +10,7 @@ import AddProduct from "./views/AddProduct.vue";
 import DetailProduct from "./views/DetailProduct.vue";
 
 import Transaction from "./views/Transaction.vue";
+import Checkout from "./views/Checkout.vue";
 import Cart from "./views/Cart.vue";
 
 const routes = [
@@ -73,6 +74,11 @@ const routes = [
         path: "/carts",
         name: "Cart",
         component: Cart,
+    },
+    {
+        path: "/checkout",
+        name: "Checkout",
+        component: Checkout,
     },
 ];
 

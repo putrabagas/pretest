@@ -2,11 +2,10 @@
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
             <div class="my-2 d-flex justify-content-end" id="inibutton">
-                <button v-if="$store.getters.getAdmin && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
+                <button v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
                     <router-link :to="{ name: 'AddProduct' }" class="text-white text-decoration-none">Add Product</router-link>
                 </button>
             </div>
-            <!-- <div v-if="error" class="alert alert-danger">{{ error }}</div> -->
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div v-for="product in products" :key="product.id" class="col">
                     <div class="card shadow-sm">
@@ -18,7 +17,7 @@
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-if="isAdmin && $store.getters.getToken != 0">
+                                    <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0">
                                         <button type="button" class="btn btn-outline-success me-2">Edit</button>
                                     </router-link>
                                     <!-- <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }" v-else>

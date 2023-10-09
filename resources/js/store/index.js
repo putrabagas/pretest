@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 const store = createStore({
     state: {
         token : localStorage.getItem('token') || 0,
-        isAdmin: localStorage.getItem('is_admin') || null,
+        isAdmin: localStorage.getItem('is_admin') || 0,
         error: null,
         products:[],
     },
@@ -38,12 +38,12 @@ const store = createStore({
         checkIsAdmin({ commit }) {
             const isAdmin = localStorage.getItem('is_admin');
             if (isAdmin && isAdmin === '1') {
-                commit('UPDATE_ISADMIN', true);
+                commit('UPDATE_ISADMIN', 1);
             }
         },
         removeAdmin(context){
             localStorage.removeItem('is_admin');
-            context.commit('UPDATE_ISADMIN', null);
+            context.commit('UPDATE_ISADMIN', 0);
         },
         async fetchProducts({ commit }) {
             try {

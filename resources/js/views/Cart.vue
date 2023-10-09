@@ -2,7 +2,10 @@
     <div class="album py-5 px-3 bg-body-tertiary">
       <h2 class="mb-3">Your Carts</h2>
         <div v-if="cart.length === 0">
-            <p>Your cart is empty.</p>
+            <p>Your cart is empty, go to the product page to add a product</p>
+            <router-link :to="{name: 'Product'}">
+                <button type="button" class="btn btn-success">Go to Product</button>
+            </router-link>
         </div>  
         <div v-else>
             <div v-for="item in cart" :key="item.id" class="card mb-3">
@@ -34,7 +37,9 @@
             </div>
             <div class="total-price">
                 <h4>Total Price: Rp. {{ calculateTotalPrice() }}</h4>
-                <button @click="checkout" class="btn btn-success">Checkout</button>
+                <router-link :to="{name: 'Checkout'}">
+                    <button type="button" class="btn btn-success">Checkout</button>
+                </router-link>
             </div>
         </div>
     </div>
@@ -123,9 +128,6 @@
         calculateTotalPrice() {
             return this.cart.reduce((total, item) => total + (item.product.price * item.quantity), 0);
         },
-        checkout() {
-            // Implement checkout logic here
-        }
     },
   };
   </script>
