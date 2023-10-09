@@ -35,7 +35,6 @@ php artisan passport:install
 7. Instal Dependencies JS
 ```
 npm install 
-
 ```
 8. Compile Asset Front-end
 ```
@@ -47,3 +46,14 @@ php artisan serve
 ```
 10. Selesai
 Silahkan buka browser dan akses aplikasi di url yang telah anda sesuaikan.
+
+## Penggunaan
+Untuk login sebagai admin silahkan menggunakan email dan password berikut :
+```
+email : admin@gmail.com
+password : admin
+```
+Untuk membuat akun user, silahkan lakukan registrasi.
+
+
+Terimakasih.
