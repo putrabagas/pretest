@@ -104,6 +104,29 @@ export default {
                     console.error('Error adding product to cart:', error);
                 });
         },
+        confirmDelete(productId) {
+            const confirmed = window.confirm("Are you sure you want to delete this product?");
+            if (confirmed) {
+                this.deleteProduct(productId);
+            }
+        },
+
+        deleteProduct(productId) {
+            const headers = {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            };
+
+            axios.delete(`/api/products/${productId}`, { headers })
+                .then(response => {
+                    if (response.data.status && response.data.data) {
+                        window.alert('Product deleted successfully!');
+                        this.$router.push({ name: 'Product' });
+                    }
+                })
+                .catch(error => {
+                    window.alert('Error deleting product:', error);
+                });
+        },
     },
     // onMounted() {
     //   this.fetchProduct();
