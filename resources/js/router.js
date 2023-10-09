@@ -3,7 +3,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Logout from "./views/Logout.vue";
-import Home from "./views/Home.vue";
 
 import Product from "./views/Product.vue";
 import AddProduct from "./views/AddProduct.vue";
@@ -17,11 +16,8 @@ import Cart from "./views/Cart.vue";
 const routes = [
     {
         path: "/",
-        name: "Home",
-        component: Home,
-        meta:{
-            requiresAuth: true
-        }
+        name: "HProduct",
+        component: Product,
     },
     {
         path: "/login",
@@ -98,7 +94,7 @@ router.beforeEach((to, from) => {
         return { name: 'Login' }
     }
     if(to.meta.requiresAuth == false && localStorage.getItem('token')){
-        return { name: 'Home' }
+        return { name: 'HProduct' }
     }
 })
 

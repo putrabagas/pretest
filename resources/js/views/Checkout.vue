@@ -30,10 +30,10 @@
             </div>
             <div class="total-price text-end">
                 <h4>Total Price: Rp. {{ calculateTotalPrice() }}</h4>
-                <button @click="checkout" class="btn btn-success">Order</button>
-                <!-- <router-link :to="{name: 'Checkout'}">
-                    <button type="button" class="btn btn-success">Checkout</button>
-                </router-link> -->
+                <button @click="checkout" class="btn btn-success mx-2">Order</button>
+                <router-link :to="{name: 'Cart'}">
+                    <button type="button" class="btn btn-outline-success">Back</button>
+                </router-link>
             </div>
         </div>
     </div>
