@@ -1,5 +1,6 @@
 <template>
-    <div class="album py-5 bg-body-tertiary">
+    <div class="album py-5 px-3 bg-body-tertiary">
+        <h2 class="mb-3">List Product</h2>
         <div class="container">
             <div class="my-2 d-flex justify-content-end" id="inibutton">
                 <button v-if="$store.getters.getAdmin == 1 && $store.getters.getToken != 0" type="button" class="btn btn-primary me-2 ml-auto">
@@ -9,13 +10,13 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div v-for="product in products" :key="product.id" class="col">
                     <div class="card shadow-sm">
-                        <img src="https://blog.knitto.co.id/wp-content/uploads/2021/09/kaos-3-scaled.jpg" alt="Thumbnail" width="100%" height="100%">
+                        <img src="https://blog.knitto.co.id/wp-content/uploads/2021/09/kaos-3-scaled.jpg"  class="rounded-top"/> 
                         <div class="card-body">
                             <h5 class="card-title" id="title">{{ product.name }}</h5>
                             <p class="card-text fw-bold" id="price">
                                 Rp.{{ product.price }}
                             </p>
-                            <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex justify-content-center align-items-center">
                                 <div class="btn-group">
                                     <router-link :to="{ name: 'DetailProduct', params: { id: product.id } }">
                                         <button type="button" class="btn btn-outline-success me-2">Detail</button>
@@ -27,12 +28,11 @@
                                         <button type="button" class="btn btn-outline-danger me-2" id="deleteButton" @click="confirmDelete(product.id)">Delete</button>
                                     </div>
                                     <form @submit.prevent="addToCart(product.id)" v-else class="me-2">
-                                        <div class="input-group">
+                                        <div class="input-group" style="max-width: 170px;">
                                             <input v-model="quantity" type="number" class="form-control" min="1" required placeholder="Quantity">
                                             <button type="submit" class="btn btn-outline-success">+ Cart</button>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
